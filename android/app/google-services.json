@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "112677009722",
+    "project_id": "swiftask-cbd",
+    "storage_bucket": "swiftask-cbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112677009722:android:b66a09682e3a84fc49b803",
+        "android_client_info": {
+          "package_name": "com.cbd.swiftask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112677009722-3a9p2jktes734updesq57v58933rbkeb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANNRGHzNg0owE-Hhd3Mkp_dO-FBjvhGbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112677009722-3a9p2jktes734updesq57v58933rbkeb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
