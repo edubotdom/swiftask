@@ -1,4 +1,4 @@
-package com.example.swiftask
+package com.cbd.swiftask
 
 import io.flutter.embedding.android.FlutterActivity
 

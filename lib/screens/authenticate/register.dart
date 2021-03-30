@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:swiftask/models/user.dart';
 import 'package:swiftask/services/auth.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
 
-  SignIn({this.toggleView});
+  Register({this.toggleView});
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
@@ -23,14 +22,14 @@ class _SignInState extends State<SignIn> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown,
-        title: Text('Iniciar sesión'),
+        title: Text('Registrarse'),
         actions: <Widget>[
           TextButton.icon(
             onPressed: () {
               widget.toggleView();
             },
             icon: Icon(Icons.person),
-            label: Text('Registrarse'),
+            label: Text('Iniciar sesión'),
             style: ButtonStyle(
                 foregroundColor: MaterialStateColor.resolveWith(
                     (states) => Colors.yellow[300])),
@@ -68,41 +67,18 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    MyUser result =
-                        await _auth.signInWithEmailAndPassword(email, password);
-
-                    if (result != null) {
-                      print('Signed in as: ' + result.uid);
-                    } else {
-                      print('Error signing in');
-                    }
+                    print(this.email);
+                    print(this.password);
                   }
                 },
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateColor.resolveWith((states) => Colors.red)),
                 child: Text(
-                  'Iniciar sesión',
+                  'Registrarse',
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              ElevatedButton(
-                  onPressed: () async {
-                    MyUser result = await _auth.signInAsAnonymous();
-
-                    if (result != null) {
-                      print('Signed in as: ' + result.uid);
-                    } else {
-                      print('Error signing in');
-                    }
-                  },
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateColor.resolveWith(
-                          (states) => Colors.deepPurple[300])),
-                  child: Text(
-                    'Iniciar sesión anónimamente',
-                    style: TextStyle(color: Colors.white),
-                  ))
             ],
           ),
         ),
