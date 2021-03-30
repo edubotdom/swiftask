@@ -15,7 +15,9 @@ class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
-  String email = '';
+  final _fieldEmail = TextEditingController();
+  final _fieldPassword = TextEditingController();
+
   String password = '';
 
   @override
@@ -46,21 +48,29 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
               SizedBox(height: 20.0),
               TextFormField(
-                validator: (value) =>
-                    value.isEmpty ? 'El email es obligatorio' : null,
-                onChanged: (value) {
-                  setState(() => this.email = value);
+                decoration: InputDecoration(labelText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'El email es obligatorio';
+                  } else if (!RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      .hasMatch(value)) {
+                    return 'El email introducido no es válido';
+                  } else {
+                    return null;
+                  }
                 },
+                controller: _fieldEmail,
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: InputDecoration(labelText: 'Contraseña'),
                 obscureText: true,
                 validator: (value) => value.length < 8
                     ? 'La contraseña debe tener al menos 8 caracteres'
                     : null,
-                onChanged: (value) {
-                  setState(() => this.password = value);
-                },
+                controller: _fieldPassword,
               ),
               SizedBox(
                 height: 40.0,
@@ -68,12 +78,22 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    MyUser result =
-                        await _auth.signInWithEmailAndPassword(email, password);
+                    MyUser result = await _auth.signInWithEmailAndPassword(
+                        _fieldEmail.text, _fieldPassword.text);
 
                     if (result != null) {
                       print('Signed in as: ' + result.uid);
                     } else {
+                      _fieldPassword.clear();
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content:
+                              Text('El email o la contraseña es incorrecta'),
+                          backgroundColor: Colors.red[300],
+                        ),
+                      );
+
                       print('Error signing in');
                     }
                   }

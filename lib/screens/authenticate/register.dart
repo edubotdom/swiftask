@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swiftask/models/user.dart';
 import 'package:swiftask/services/auth.dart';
 
 class Register extends StatefulWidget {
@@ -45,14 +46,26 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               SizedBox(height: 20.0),
               TextFormField(
-                validator: (value) =>
-                    value.isEmpty ? 'El email es obligatorio' : null,
+                decoration: InputDecoration(labelText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'El email es obligatorio';
+                  } else if (!RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      .hasMatch(value)) {
+                    return 'El email introducido no es válido';
+                  } else {
+                    return null;
+                  }
+                },
                 onChanged: (value) {
                   setState(() => this.email = value);
                 },
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: InputDecoration(labelText: 'Contraseña'),
                 obscureText: true,
                 validator: (value) => value.length < 8
                     ? 'La contraseña debe tener al menos 8 caracteres'
@@ -67,8 +80,17 @@ class _RegisterState extends State<Register> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    print(this.email);
-                    print(this.password);
+                    if (_formKey.currentState.validate()) {
+                      MyUser result = await _auth.registerWithEmailAndPassword(
+                          email, password);
+
+                      if (result != null) {
+                        print('Signed in as: ' + result.uid);
+                      } else {
+                        _formKey.currentState.reset();
+                        print('Error signing in');
+                      }
+                    }
                   }
                 },
                 style: ButtonStyle(
