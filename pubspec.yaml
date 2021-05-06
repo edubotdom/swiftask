@@ -37,6 +37,9 @@ dependencies:
   # Prvider
   provider: ^5.0.0
 
+  # Url launcher
+  url_launcher: ^6.0.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

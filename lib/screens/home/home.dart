@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:swiftask/screens/home/task_form.dart';
+// import 'package:swiftask/screens/home/task_form.dart';
+import 'package:swiftask/screens/home/task_list.dart';
 import 'package:swiftask/services/auth.dart';
 
 class Home extends StatelessWidget {
@@ -6,8 +9,87 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Lista de tareas'),
+          backgroundColor: Colors.deepOrangeAccent,
+          actions: <Widget>[
+            TextButton.icon(
+              onPressed: () async {
+                await _auth.signOut();
+              },
+              icon: Icon(Icons.person),
+              label: Text('Cerrar sesión'),
+              style: ButtonStyle(
+                foregroundColor:
+                    MaterialStateColor.resolveWith((states) => Colors.white),
+              ),
+            ),
+          ],
+          bottom: TabBar(tabs: <Widget>[
+            Tab(
+              child: Row(children: <Widget>[
+                Icon(
+                  Icons.pending_actions_sharp,
+                  size: 20.0,
+                ),
+                Text('Por hacer')
+              ]),
+            ),
+            Tab(
+              child: Row(children: <Widget>[
+                Icon(
+                  Icons.pending,
+                  size: 20.0,
+                ),
+                Text('En progreso')
+              ]),
+            ),
+            Tab(
+              child: Row(children: <Widget>[
+                Icon(
+                  Icons.done_all_sharp,
+                  size: 20.0,
+                ),
+                Text('Hecho')
+              ]),
+            ),
+          ]),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            TaskList(type: 'TO DO'),
+            TaskList(type: 'IN PROGRESS'),
+            TaskList(type: 'DONE'),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add, color: Colors.white),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => TaskForm()));
+          },
+          backgroundColor: Colors.orange,
+        ),
+      ),
+    );
+  }
+/*
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.greenAccent,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        backgroundColor: Colors.red,
+        onPressed: () {
+          print('Pressed: New Form button');
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => TaskForm()));
+        },
+      ),
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: Text('Welcome'),
@@ -28,4 +110,6 @@ class Home extends StatelessWidget {
       ),
     );
   }
+
+  */
 }

@@ -8,7 +8,7 @@ class AuthService {
 
   // Simplify user model
   MyUser _userFromFirebaseUser(User user) {
-    return user != null ? MyUser(uid: user.uid) : null;
+    return user != null ? MyUser(user.uid) : null;
   }
 
   // Auth Stream
