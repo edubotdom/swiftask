@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swiftask/models/task.dart';
 import 'package:swiftask/models/user.dart';
+import 'package:swiftask/screens/home/task_form.dart';
 import 'package:swiftask/services/data_repository.dart';
 
 class TaskInfo extends StatefulWidget {
@@ -67,7 +68,14 @@ class _TaskInfoState extends State<TaskInfo> {
             margin: EdgeInsets.all(10.0),
             child: FloatingActionButton(
               heroTag: 'editBtn',
-              onPressed: () => print('edit'),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            TaskForm(initialTask: widget.task)));
+              },
               backgroundColor: Colors.green,
               child: Icon(Icons.edit),
             ),

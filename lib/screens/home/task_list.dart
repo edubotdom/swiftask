@@ -75,10 +75,44 @@ class _TaskListState extends State<TaskList> {
                                 },
                               ),
                             ),
-                            IconButton(
-                                icon: Icon(Icons.delete, color: Colors.red),
-                                onPressed: () =>
-                                    print('Delete item $position')),
+                            widget.type != 'TO DO'
+                                ? IconButton(
+                                    icon: Icon(Icons.arrow_left_sharp,
+                                        color: Colors.green),
+                                    onPressed: () {
+                                      switch (widget.type) {
+                                        case 'IN PROGRESS':
+                                          repository.updateTaskStatus(
+                                              tasks[position].reference.id,
+                                              'TO DO');
+                                          break;
+                                        case 'TO DO':
+                                          repository.updateTaskStatus(
+                                              tasks[position].reference.id,
+                                              'IN PROGRESS');
+                                          break;
+                                      }
+                                    })
+                                : Container(),
+                            widget.type != 'DONE'
+                                ? IconButton(
+                                    icon: Icon(Icons.arrow_right_sharp,
+                                        color: Colors.green),
+                                    onPressed: () {
+                                      switch (widget.type) {
+                                        case 'TO DO':
+                                          repository.updateTaskStatus(
+                                              tasks[position].reference.id,
+                                              'IN PROGRESS');
+                                          break;
+                                        case 'IN PROGRESS':
+                                          repository.updateTaskStatus(
+                                              tasks[position].reference.id,
+                                              'DONE');
+                                          break;
+                                      }
+                                    })
+                                : Container(),
                           ],
                         ),
                       ],

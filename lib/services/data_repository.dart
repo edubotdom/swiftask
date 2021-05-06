@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:swiftask/models/task.dart';
@@ -21,6 +22,20 @@ class DataRepository {
 
   Future<DocumentReference> createNewTask(Task task) {
     return userCollection.doc(this.uid).collection('tasks').add(task.toJson());
+  }
+
+  Future<void> updateTask(Task task) {
+    return userCollection
+        .doc(this.uid)
+        .collection('tasks')
+        .doc(task.reference.id)
+        .update(task.toJson());
+  }
+
+  Future<void> updateTaskStatus(String taskId, String newStatus) {
+    return userCollection.doc(this.uid).collection('tasks').doc(taskId).update({
+      'status': newStatus,
+    });
   }
 
   Future<void> deleteTaskById(String taskId) {

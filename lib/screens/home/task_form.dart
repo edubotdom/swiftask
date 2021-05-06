@@ -8,6 +8,10 @@ import 'package:swiftask/services/data_repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TaskForm extends StatefulWidget {
+  Task initialTask;
+
+  TaskForm({this.initialTask});
+
   @override
   _TaskFormState createState() => _TaskFormState();
 }
@@ -20,7 +24,20 @@ class _TaskFormState extends State<TaskForm> {
   String status = "TO DO";
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.initialTask != null) {
+      print('hi 2');
+      this.title = widget.initialTask.title;
+      this.description = widget.initialTask.description;
+      this.status = widget.initialTask.status;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print('hi');
     final user = Provider.of<MyUser>(context);
     DataRepository repository = DataRepository(uid: user.uid);
 
@@ -41,11 +58,13 @@ class _TaskFormState extends State<TaskForm> {
                   children: <Widget>[
                     SizedBox(height: 20.0),
                     TextFormField(
+                      initialValue: this.title,
                       decoration: InputDecoration(labelText: 'Título'),
                       onChanged: (value) => this.title = value,
                     ),
                     SizedBox(height: 20.0),
                     TextFormField(
+                      initialValue: this.description,
                       keyboardType: TextInputType.multiline,
                       minLines: 4,
                       maxLines: 6,
@@ -56,14 +75,24 @@ class _TaskFormState extends State<TaskForm> {
                       height: 40.0,
                     ),
                     SizedBox(height: 20.0),
-                    ElevatedButton(
-                      onPressed: () async {
-                        Task newTask = Task(title, status, description);
-                        repository.createNewTask(newTask);
-                        Navigator.pop(context);
-                      },
-                      child: Text('Crear tarea'),
-                    ),
+                    widget.initialTask == null
+                        ? ElevatedButton(
+                            onPressed: () async {
+                              Task newTask = Task(title, status, description);
+                              repository.createNewTask(newTask);
+                              Navigator.pop(context);
+                            },
+                            child: Text('Crear tarea'),
+                          )
+                        : ElevatedButton(
+                            onPressed: () async {
+                              Task newTask = Task(title, status, description);
+                              newTask.reference = widget.initialTask.reference;
+                              repository.updateTask(newTask);
+                              Navigator.pop(context);
+                            },
+                            child: Text('Actualizar tarea'),
+                          ),
                   ],
                 ),
               ),
