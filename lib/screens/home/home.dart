@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('Lista de tareas'),
-          backgroundColor: Colors.deepOrangeAccent,
+          backgroundColor: Colors.green.shade900,
           actions: <Widget>[
             TextButton.icon(
               onPressed: () async {
@@ -28,32 +28,41 @@ class Home extends StatelessWidget {
               ),
             ),
           ],
-          bottom: TabBar(tabs: <Widget>[
+          bottom: TabBar(isScrollable: true, tabs: <Widget>[
             Tab(
               child: Row(children: <Widget>[
                 Icon(
                   Icons.pending_actions_sharp,
-                  size: 20.0,
+                  size: 15.0,
                 ),
-                Text('Por hacer')
+                Text(
+                  ' Por hacer',
+                  style: TextStyle(fontSize: 15.0),
+                )
               ]),
             ),
             Tab(
               child: Row(children: <Widget>[
                 Icon(
                   Icons.pending,
-                  size: 20.0,
+                  size: 15.0,
                 ),
-                Text('En progreso')
+                Text(
+                  ' En progreso',
+                  style: TextStyle(fontSize: 15.0),
+                )
               ]),
             ),
             Tab(
               child: Row(children: <Widget>[
                 Icon(
                   Icons.done_all_sharp,
-                  size: 20.0,
+                  size: 15.0,
                 ),
-                Text('Hecho')
+                Text(
+                  ' Hecho',
+                  style: TextStyle(fontSize: 15.0),
+                )
               ]),
             ),
           ]),

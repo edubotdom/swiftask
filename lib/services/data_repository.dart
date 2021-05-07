@@ -16,7 +16,7 @@ class DataRepository {
         .doc(this.uid)
         .collection('tasks')
         .where('status', isEqualTo: status)
-        //.orderBy('title')
+        .orderBy('title')
         .snapshots();
   }
 
