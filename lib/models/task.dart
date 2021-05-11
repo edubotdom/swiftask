@@ -5,9 +5,14 @@ class Task {
   String status;
   String description;
 
+  Timestamp taskStartDateTime;
+  Timestamp taskEndDateTime;
+  Timestamp createDate;
+
   DocumentReference reference;
 
-  Task(this.title, this.status, this.description);
+  Task(this.title, this.status, this.description, this.createDate,
+      this.taskStartDateTime, this.taskEndDateTime);
 
   factory Task.fromSnapshot(DocumentSnapshot snapshot) {
     Task newTask = Task.fromJson(snapshot.data());
@@ -28,6 +33,9 @@ Task _taskFromJson(Map<String, dynamic> json) {
     json['title'] as String,
     json['status'] as String,
     json['description'] as String,
+    json['createDate'] as Timestamp,
+    json['taskStartDateTime'] as Timestamp,
+    json['taskEndDateTime'] as Timestamp,
   );
 }
 
@@ -35,4 +43,7 @@ Map<String, dynamic> _taskToJson(Task task) => <String, dynamic>{
       'title': task.title,
       'status': task.status,
       'description': task.description,
+      'createDate': task.createDate,
+      'taskStartDateTime': task.taskStartDateTime,
+      'taskEndDateTime': task.taskEndDateTime,
     };

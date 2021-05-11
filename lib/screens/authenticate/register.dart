@@ -53,16 +53,14 @@ class _RegisterState extends State<Register> {
     final signUpButton = ElevatedButton(
       onPressed: () async {
         if (_formKey.currentState.validate()) {
-          if (_formKey.currentState.validate()) {
-            MyUser result =
-                await _auth.registerWithEmailAndPassword(email, password);
+          MyUser result =
+              await _auth.registerWithEmailAndPassword(email, password);
 
-            if (result != null) {
-              print('Signed in as: ' + result.uid);
-            } else {
-              _formKey.currentState.reset();
-              print('Error signing in');
-            }
+          if (result != null) {
+            print('Signed in as: ' + result.uid);
+          } else {
+            _formKey.currentState.reset();
+            print('Error signing in');
           }
         }
       },

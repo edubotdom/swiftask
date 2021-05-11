@@ -39,7 +39,10 @@ class _TaskListState extends State<TaskList> {
       child: StreamBuilder<QuerySnapshot>(
           stream: repository.getTaskStreamByStatus(widget.type),
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return LinearProgressIndicator();
+            if (!snapshot.hasData)
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             tasks =
                 /* [
               Task('Titulo de la tarea toa toa ot wef wef wefa', 'TO DO',
@@ -86,7 +89,7 @@ class _TaskListState extends State<TaskList> {
                                               tasks[position].reference.id,
                                               'TO DO');
                                           break;
-                                        case 'TO DO':
+                                        case 'DONE':
                                           repository.updateTaskStatus(
                                               tasks[position].reference.id,
                                               'IN PROGRESS');
