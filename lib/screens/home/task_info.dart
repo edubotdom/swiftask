@@ -191,23 +191,3 @@ class _TaskInfoState extends State<TaskInfo> {
     );
   }
 }
-
-Widget _chooseIcon(String type) {
-  switch (type) {
-    case 'IN PROGRESS':
-      return Icon(
-        Icons.pending_rounded,
-        color: Colors.indigoAccent,
-      );
-    case 'DONE':
-      return Icon(
-        Icons.done_sharp,
-        color: Colors.green,
-      );
-    default:
-      return Icon(
-        Icons.pending_actions_sharp,
-        color: Colors.blueGrey,
-      );
-  }
-}

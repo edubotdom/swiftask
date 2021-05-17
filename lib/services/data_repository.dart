@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:swiftask/models/task.dart';
@@ -16,7 +15,7 @@ class DataRepository {
         .doc(this.uid)
         .collection('tasks')
         .where('status', isEqualTo: status)
-        .orderBy('title')
+        .orderBy('createDate')
         .snapshots();
   }
 

@@ -85,40 +85,4 @@ class Home extends StatelessWidget {
       ),
     );
   }
-/*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.greenAccent,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        backgroundColor: Colors.red,
-        onPressed: () {
-          print('Pressed: New Form button');
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => TaskForm()));
-        },
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text('Welcome'),
-        elevation: 0.0,
-        actions: <Widget>[
-          TextButton.icon(
-            onPressed: () async {
-              await _auth.signOut();
-            },
-            icon: Icon(Icons.person),
-            label: Text('Sign Out'),
-            style: ButtonStyle(
-              foregroundColor:
-                  MaterialStateColor.resolveWith((states) => Colors.white),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  */
 }
